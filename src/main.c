@@ -27,6 +27,7 @@ int main(int argc,char *argv[]){
         initialisation_tab(tab);
         remplir_tableau(fichier, tab);
         afficher_stats(tab,annee);
+        printf("hello");
     }
 
     rewind(fichier);
