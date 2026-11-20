@@ -20,7 +20,7 @@ typedef struct{
     int total_mort;
     int total_blesse_grave;
     int total_blesse_leger;
-    Chainon* liste_id;
+    Chainon* liste_id[1000];
 }Annee;
 
 typedef struct Ligne{

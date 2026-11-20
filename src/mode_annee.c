@@ -44,12 +44,16 @@ void initialisation_tab(Annee tab[20]){
             tab[i].total_mort = 0;
             tab[i].total_blesse_grave = 0;
             tab[i].total_blesse_leger = 0;
-            tab[i].liste_id = NULL;
+            for(int j = 0; j<1000; j++){
+                tab[i].liste_id[j] = NULL;
+            }
         }
 }
 
+
 void remplir_tableau(FILE* fichier, Annee tab[20]){
     int c;
+    int indice;
     Ligne ligne;
     while((c = fgetc(fichier)) != '\n' && c != EOF){
     }
@@ -57,8 +61,12 @@ void remplir_tableau(FILE* fichier, Annee tab[20]){
         if(ligne.annee < 2005 || ligne.annee > 2024){
             continue;
         }
-        if(existe(tab[ligne.annee-2005].liste_id, ligne.id_collision)==0){
-            tab[ligne.annee-2005].liste_id = ajouter_id(tab[ligne.annee-2005].liste_id, ligne.id_collision);
+        indice = ligne.id_collision % 1000;
+        if(indice < 0){
+            indice += 1000;
+        }
+        if(existe(tab[ligne.annee-2005].liste_id[indice], ligne.id_collision)==0){
+            tab[ligne.annee-2005].liste_id[indice] = ajouter_id(tab[ligne.annee-2005].liste_id[indice], ligne.id_collision);
             tab[ligne.annee-2005].total_accident++;
         }
         if(ligne.severite == 1){
