@@ -20,14 +20,13 @@ int main(int argc,char *argv[]){
 
     //MODE YEAR DATA
 
-    if(strcmp(argv[1],"MODE_YEAR") == 1){
+    if(strcmp(argv[1],"MODE_YEAR") == 0){
         int annee ;
         annee = choix_annee();
         Annee tab[20];
         initialisation_tab(tab);
         remplir_tableau(fichier, tab);
         afficher_stats(tab,annee);
-        printf("hello");
     }
 
     rewind(fichier);

@@ -36,7 +36,6 @@ int existe(Chainon* liste, int nombre) {
 }
 
 
-
 void initialisation_tab(Annee tab[20]){
     for(int i=0; i<20 ; i++){
             tab[i].annee = i+2005;
@@ -50,50 +49,44 @@ void initialisation_tab(Annee tab[20]){
 }
 
 void remplir_tableau(FILE* fichier, Annee tab[20]){
-    char c;
-    Ligne* ligne = malloc(sizeof(Ligne));
-    if(ligne == NULL){
-        printf("Erreur allocation Ligne dans MODE_YEAR\n");
-        exit(3);
+    int c;
+    Ligne ligne;
+    while((c = fgetc(fichier)) != '\n' && c != EOF){
     }
-    while(c != '\n' && c != EOF){
-        c = fgetc(fichier);
-    }
-    while(fscanf(fichier,"%d;%d;%*d;%*d;%*d;%d;%*d;%*d;%*d", &(ligne->annee), &(ligne->id_collision), &(ligne->severite)) == 3){
-        if(existe(tab[ligne->annee-2005].liste_id, ligne->id_collision)==0){ // A FAIRE
-            tab[ligne->annee-2005].liste_id = ajouter_id(tab[ligne->annee-2005].liste_id, ligne->id_collision);
-            tab[ligne->annee-2005].total_accident++ ;
+    while(fscanf(fichier,"%d;%d;%*d;%*d;%*d;%d;%*d;%*d;%*d", &(ligne.annee), &(ligne.id_collision), &(ligne.severite)) == 3){
+        if(ligne.annee < 2005 || ligne.annee > 2024){
+            continue;
         }
-        if(ligne->severite == 1){
-            tab[ligne->annee-2005].total_indemne ++;
+        if(existe(tab[ligne.annee-2005].liste_id, ligne.id_collision)==0){
+            tab[ligne.annee-2005].liste_id = ajouter_id(tab[ligne.annee-2005].liste_id, ligne.id_collision);
+            tab[ligne.annee-2005].total_accident++;
         }
-        else if(ligne->severite == 2){
-            tab[ligne->annee-2005].total_mort ++;
+        if(ligne.severite == 1){
+            tab[ligne.annee-2005].total_indemne++;
         }
-        else if(ligne->severite == 3){
-            tab[ligne->annee-2005].total_blesse_grave ++;
+        else if(ligne.severite == 2){
+            tab[ligne.annee-2005].total_mort++;
         }
-        else if(ligne->severite == 4){
-            tab[ligne->annee-2005].total_blesse_leger ++;
+        else if(ligne.severite == 3){
+            tab[ligne.annee-2005].total_blesse_grave++;
         }
-
+        else if(ligne.severite == 4){
+            tab[ligne.annee-2005].total_blesse_leger++;
+        }
     }
 }
 
 int choix_annee(){
-    int annee;
+    int annee = 0;
     int verif;
-    int stop=0;
-    while(stop!=1){
-        do{
-            printf("Pour quelle annee voulez vous consulter les donnees (entre 2005 et 2024)?\n");
-            verif = scanf("%d", &annee);
-            vide_buffer();
-            if(verif!=1 || annee<2005 || annee>2024){
-                printf("Veuillez choisir une annee valide entre 2005 et 2024 (AAAA)\n");
-            }
-        }while(verif!=1 || annee<2005 || annee>2024);
-    }
+    do {
+        printf("Choisissez une annee (2005-2024) : ");
+        verif = scanf("%d", &annee);
+        vide_buffer();
+        if(verif != 1 || annee < 2005 || annee > 2024){
+            printf("Annee invalide.\n");
+        }
+    } while(verif != 1 || annee < 2005 || annee > 2024);
     return annee;
 }
 
