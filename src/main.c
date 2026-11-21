@@ -29,9 +29,19 @@ int main(int argc,char *argv[]){
         afficher_stats(tab,annee);
     }
 
-    rewind(fichier);
-    
+    // MODE AGE DATA
+    else if (strcmp(argv[1], "AGE_DATA") == 0) {
+        Chainon* liste = NULL;
+        liste = remplir_liste(fichier, liste);
+    }
 
+    
+    else {
+        printf("Mode inconnu : %s\n", argv[1]);
+        fclose(fichier);
+        return 0;
+    }
+    rewind(fichier);
     fclose(fichier);
     return 0;
 }
