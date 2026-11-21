@@ -8,9 +8,10 @@ void vide_buffer(){
 
 int main(int argc,char *argv[]){
     if(argc != 3){
-        printf("Utilisation : %d fichier\n", argc);
+        printf("Utilisation : %s <fichier>\n", argv[0]);
         return 1;
     }
+
     FILE* fichier = NULL;
     fichier =  fopen(argv[2],"r");
     if(fichier == NULL){
@@ -20,7 +21,7 @@ int main(int argc,char *argv[]){
 
     //MODE YEAR DATA
 
-    if(strcmp(argv[1],"MODE_YEAR") == 0){
+    if(strcmp(argv[1],"YEAR_DATA") == 0){ //J'ai remplacé "MODE YEAR" par "YEAR_DATA" (Elliot)
         int annee ;
         annee = choix_annee();
         Annee tab[20];
@@ -30,18 +31,19 @@ int main(int argc,char *argv[]){
     }
 
     // MODE AGE DATA
+    /*
     else if (strcmp(argv[1], "AGE_DATA") == 0) {
         Chainon* liste = NULL;
         liste = remplir_liste(fichier, liste);
     }
-
+    
     
     else {
         printf("Mode inconnu : %s\n", argv[1]);
         fclose(fichier);
         return 0;
     }
-    rewind(fichier);
+    */
     fclose(fichier);
     return 0;
 }
