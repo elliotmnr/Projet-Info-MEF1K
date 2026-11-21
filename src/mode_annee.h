@@ -8,11 +8,6 @@
 #include <math.h>
 
 
-typedef struct Chainon{
-    int id_collision;
-    struct Chainon* suivant;
-}Chainon;
-
 typedef struct{
     int annee;
     int total_accident;
@@ -20,7 +15,6 @@ typedef struct{
     int total_mort;
     int total_blesse_grave;
     int total_blesse_leger;
-    Chainon* liste_id[1000];
 }Annee;
 
 typedef struct Ligne{
@@ -29,8 +23,6 @@ typedef struct Ligne{
     int severite;
 }Ligne;
 
-Chainon* ajouter_id(Chainon* liste, int nombre);
-int existe(Chainon* liste, int nombre);
 void initialisation_tab(Annee tab[20]);
 void remplir_tableau(FILE* fichier, Annee tab[20]);
 int choix_annee();
